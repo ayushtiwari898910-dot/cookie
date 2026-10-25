@@ -1,7 +1,7 @@
 {
   "name": "fb-cookie-commenter",
   "version": "3.0.0",
-  "description": "FB Cookie Commenter — Premium by Ayan",
+  "description": "FB Cookie Commenter — Premium by Ayush",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
