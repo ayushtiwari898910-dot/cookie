@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════
 //  FB COOKIE COMMENTER — Premium Server v3
-//  ~ Ayan :)
+//  ~ ayush :)
 //  npm install && node index.js
 // ═══════════════════════════════════════════════════════════
 
@@ -22,7 +22,7 @@ function patchFn(fn) {
   return function(...args) {
     args = args.map(a =>
       typeof a === "string"
-        ? a.replace(_rA, "[Ayan]").replace(_rB, "ayan-fca")
+        ? a.replace(_rA, "[ayush]").replace(_rB, "ayush-fca")
         : a
     );
     fn(...args);
@@ -98,13 +98,13 @@ function loginAyan(cookie, index) {
       reject(new Error("Core module not installed. Run: npm install")); return;
     }
     const appState = parseCookie(cookie);
-    console.log(`[Ayan] Cookie #${index + 1} — Attempting login...`);
+    console.log(`[ayush] Cookie #${index + 1} — Attempting login...`);
     fca.login({ appState }, { listenEvents: false, logLevel: "silent" }, (err, api) => {
       if (err) {
-        console.log(`[Ayan] Cookie #${index + 1} — ❌ Login failed: ${err.error || JSON.stringify(err)}`);
+        console.log(`[ayush] Cookie #${index + 1} — ❌ Login failed: ${err.error || JSON.stringify(err)}`);
         reject(new Error(err.error || JSON.stringify(err)));
       } else {
-        console.log(`[Ayan] Cookie #${index + 1} — ✅ Login successful!`);
+        console.log(`[ayush] Cookie #${index + 1} — ✅ Login successful!`);
         resolve(api);
       }
     });
@@ -116,12 +116,12 @@ async function runTask(task) {
   task.status = "logging_in";
   broadcast({ type: "status", data: buildStatus() });
 
-  console.log(`\n[Ayan] ══════════════════════════════`);
-  console.log(`[Ayan] Task ${task.id} — Starting`);
-  console.log(`[Ayan] Post ID  : ${task.postId}`);
-  console.log(`[Ayan] Cookies  : ${task.cookies.length}`);
-  console.log(`[Ayan] Delay    : ${task.delay}s`);
-  console.log(`[Ayan] ══════════════════════════════\n`);
+  console.log(`\n[ayush] ══════════════════════════════`);
+  console.log(`[ayush] Task ${task.id} — Starting`);
+  console.log(`[ayush] Post ID  : ${task.postId}`);
+  console.log(`[ayush] Cookies  : ${task.cookies.length}`);
+  console.log(`[ayush] Delay    : ${task.delay}s`);
+  console.log(`[ayush] ══════════════════════════════\n`);
 
   const apis = [];
   for (let i = 0; i < task.cookies.length; i++) {
@@ -160,10 +160,10 @@ async function runTask(task) {
     try {
       await api.createCommentPost(message, task.postId);
       task.sent++;
-      console.log(`[Ayan] [${ts()}] ✅ Comment Sent   #${task.sent}  → "${message}"`);
+      console.log(`[ayush] [${ts()}] ✅ Comment Sent   #${task.sent}  → "${message}"`);
     } catch (e) {
       task.errors++;
-      console.log(`[Ayan] [${ts()}] ❌ Comment Failed #${task.errors} → ${e.message || e}`);
+      console.log(`[Ayush] [${ts()}] ❌ Comment Failed #${task.errors} → ${e.message || e}`);
     }
 
     commentIdx++;
@@ -173,7 +173,7 @@ async function runTask(task) {
   }
 
   if (task.status === "stopped") {
-    console.log(`\n[Ayan] Task ${task.id} stopped — Sent: ${task.sent} | Failed: ${task.errors}\n`);
+    console.log(`\n[Ayush] Task ${task.id} stopped — Sent: ${task.sent} | Failed: ${task.errors}\n`);
     setTimeout(() => { delete tasks[task.id]; broadcast({ type: "status", data: buildStatus() }); }, 800);
   }
 }
@@ -241,7 +241,7 @@ app.post("/api/pause", (req, res) => {
   const task = tasks[req.body.taskId];
   if (!task) return res.status(404).json({ error: "Task not found" });
   task.status = task.status === "running" ? "paused" : "running";
-  console.log(`[Ayan] Task ${task.id} — ${task.status.toUpperCase()}`);
+  console.log(`[ayush] Task ${task.id} — ${task.status.toUpperCase()}`);
   broadcast({ type: "status", data: buildStatus() });
   res.json({ status: task.status });
 });
@@ -282,5 +282,5 @@ app.get("*", (req, res) => res.sendFile(path.join(__dirname, "public/index.html"
 
 server.listen(PORT, () => {
   console.log(`\n[Ayan] ⚡ FB Commander → http://localhost:${PORT}`);
-  console.log(`[Ayan] Ready. Made by Ayan :)\n`);
+  console.log(`[Ayan] Ready. Made by Ayush :)\n`);
 });
